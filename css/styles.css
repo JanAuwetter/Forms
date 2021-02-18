@@ -1,0 +1,8 @@
+.col-align-bottom{
+  align-items: flex-end;
+}
+
+.border-padding{
+  padding-bottom: 20px;
+  padding-top: 20px;
+}

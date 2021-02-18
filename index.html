@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type= "text/javascript" src="js/model/user.js"></script>
+    <script type= "text/javascript" src="js/services/EmployeeService.js"></script>
+    <script type= "text/javascript" src="js/model/employee.js"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Forumlarverarbeitnug</title>
+  </head>
+  <body>
+      <div class="container">
+          <div class="row">
+            <h2><span class="badge bg-info text-dark" align="center">Mitarbeiterverwaltung</span></h1>
+          </div>
+          <div class="row col-align-bottom border border-3 border-padding">
+                  <div class="col">
+                    <input type="name" class="form-control"  placeholder="Bitte einen Namen eingeben!">
+                  </div>
+                  <div class="col">
+                    <input type="email" class="form-control" placeholder="name@example.de" name="" value=""></div>
+                  <div class="col">
+                    <select class="form-select">
+                      <option selected>Rolle</option>
+                      <option value="admin">Administror</option>
+                      <option value="user">Benutzer</option>
+                      <option value="guest">Gast</option>
+                    </select>
+                  </div>
+                  <div class="d-grid gap-2"><br><br>
+                  <button class="btn btn-secondary" type="button">Hinzufügen</button>
+                  </div>
+          </div>
+      </div>
+  </body>
+</html>
