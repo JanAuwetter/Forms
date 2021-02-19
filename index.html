@@ -3,84 +3,48 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="./css/styles.css">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type= "text/javascript" src="js/model/user.js"></script>
-    <script type= "text/javascript" src="js/services/EmployeeService.js"></script>
     <script type= "text/javascript" src="js/model/employee.js"></script>
-    <link rel="stylesheet" href="./css/styles.css">
+    <script type= "text/javascript" src="js/services/employeeService.js"></script>
     <title>Forumlarverarbeitnug</title>
   </head>
   <body>
-      <div class="container">
-          <div class="row" align="center">
-            <h2><span class="badge bg-info text-dark">Mitarbeiterverwaltung</span></h1>
-          </div>
-          <div class="row col-align-bottom border border-2 border-padding">
+  <div class="container">
+      <div class="row">
+        <h3><span class="badge bg-success">Mitarbeiterverwaltung</span></h3>
+      </div>
+          <div class="row border border-padding">
                   <div class="col">
-                    <input type="name" class="form-control"  placeholder="Bitte einen Namen eingeben!">
+                    <input id="id_name" type="name" class="form-control" placeholder="Bitte einen Namen eingeben!" name="name" value="" onchange="EmployeeService.valueChange(event)">
                   </div>
                   <div class="col">
-                    <input type="email" class="form-control" placeholder="name@example.de" name="" value=""></div>
+                    <input id="id_e_mail" type="email" class="form-control" placeholder="name@example.de" name="e-mail" value="" onchange="EmployeeService.valueChange(event)"></div>
                   <div class="col">
-                    <select class="form-select">
-                      <option selected>Rolle</option>
-                      <option value="admin">Administror</option>
-                      <option value="user">Benutzer</option>
-                      <option value="guest">Gast</option>
+                    <select id="id_role" class="form-select" name="role" onchange="EmployeeService.roleChange(event)">
+                      <option selected>Bitte auswählen...</option>
+                      <option value="Admin">Administror</option>
+                      <option value="Benutzer">Benutzer</option>
+                      <option value="Gast">Gast</option>
                     </select>
                   </div>
                   <div class="d-grid gap-3"><br><br>
-                  <button class="badge bg-secondary" type="button">Hinzufügen</button>
+                  <button id="id_button" class="btn btn-secondary" type="button" name="add" onclick="EmployeeService.addEmployee()">Hinzufügen</button>
                   </div>
           </div><br>
 
-<div class="row border border-2 border-padding">
-              <table class="table">
-
-              <thead>
-                <tr>
-                  <th scope="col">ID #</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">E-Mail Adresse</th>
-                  <th scope="col">Rolle</th>
-                  <th scope="col">Actionen</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Axel Schweiz</td>
-                  <td>admin@admin.de</td>
-                  <td>Administrator</td>
-                  <td><div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="badge bg-secondary">löschen</button>&nbsp;&nbsp;
-                    <button type="button" class="badge bg-secondary">bearbeiten</button>
-                  </div></td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Hans Dampf</td>
-                  <td>Blah@blah.de</td>
-                  <td>Benutzer</td>
-                  <td><div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="badge bg-secondary">löschen</button>&nbsp;&nbsp;
-                    <button type="button" class="badge bg-secondary">bearbeiten</button>
-                  </div></td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry Luftpumpe</td>
-                  <td>Test@test.de</td>
-                  <td>Gast</td>
-                  <td><div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="badge bg-secondary">löschen</button>&nbsp;&nbsp;
-                    <button type="button" class="badge bg-secondary">bearbeiten</button>
-                  </div></td>
-                </tr>
-              </tbody>
-            </table>
-  </div>
+     <div id="table" class="row border border-2 border-padding">
+        <div class="row">
+            <div class="col">ID</div>
+            <div class="col">Name</div>
+            <div class="col">E-Mail Adresse</div>
+            <div class="col">Rolle</div>
+            <div class="col">Aktion</div>
+        </div>
+        <div id="userContent">  </div>
+    </div>
 </div>
 </body>
 </html>
