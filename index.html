@@ -1,50 +1,90 @@
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="./css/styles.css">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type= "text/javascript" src="js/model/user.js"></script>
-    <script type= "text/javascript" src="js/model/employee.js"></script>
-    <script type= "text/javascript" src="js/services/employeeService.js"></script>
-    <title>Forumlarverarbeitnug</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="js/model/user.js"></script>
+    <script src="js/model/employee.js"></script>
+    <script src="js/services/employeeService.js"></script>
+    <title></title>
   </head>
-  <body>
-  <div class="container">
-      <div class="row">
-        <h3><span class="badge bg-success">Mitarbeiterverwaltung</span></h3>
-      </div>
-          <div class="row border border-padding">
-                  <div class="col">
-                    <input id="id_name" type="name" class="form-control" placeholder="Bitte einen Namen eingeben!" name="name" value="" onchange="EmployeeService.valueChange(event)">
-                  </div>
-                  <div class="col">
-                    <input id="id_e_mail" type="email" class="form-control" placeholder="name@example.de" name="e-mail" value="" onchange="EmployeeService.valueChange(event)"></div>
-                  <div class="col">
-                    <select id="id_role" class="form-select" name="role" onchange="EmployeeService.roleChange(event)">
-                      <option selected>Bitte auswählen...</option>
-                      <option value="Admin">Administror</option>
-                      <option value="Benutzer">Benutzer</option>
-                      <option value="Gast">Gast</option>
-                    </select>
-                  </div>
-                  <div class="d-grid gap-3"><br><br>
-                  <button id="id_button" class="btn btn-secondary" type="button" name="add" onclick="EmployeeService.addEmployee()">Hinzufügen</button>
-                  </div>
-          </div><br>
+  <body onload="EmployeeService.init()">
+    <div class="container">
 
-     <div id="table" class="row border border-2 border-padding">
         <div class="row">
-            <div class="col">ID</div>
-            <div class="col">Name</div>
-            <div class="col">E-Mail Adresse</div>
-            <div class="col">Rolle</div>
-            <div class="col">Aktion</div>
+          <h2><span class="badge bg-secondary">Mitarbeiterverwaltung</span></h2>
         </div>
-        <div id="userContent">  </div>
+        <div class="border border-padding">
+          <div class="row col-align-bottom">
+            <div class="col">
+              <label class="form-label">Name:</label>
+              <input id="id_name"
+                class="form-control"
+                placeholder="Bitte einen Namen eingeben!"
+                type="text" name="name" value=""
+                onchange="EmployeeService.valueChange(event)">
+            </div>
+            <div class="col">
+              <label class="form-label">Email:</label>
+              <input id="id_e-mail"
+              class="form-control"
+              placeholder="name@example.com"
+              type="email" name="e-mail",
+              value=""
+              onchange="EmployeeService.valueChange(event)">
+            </div>
+            <div class="col">
+              <label class="form-label">Rolle:</label>
+              <select id="id_role"
+              class="form-select"
+              name="role"
+              onchange="EmployeeService.roleChange(event)">
+                <option selected>Bitte wählen aus...</option>
+                <option value="Admin">Administrator</option>
+                <option value="Benutzer">Benutzer</option>
+                <option value="Gast">Gast</option>
+              </select>
+            </div>
+          </div>
+
+        <div class="row button-margin-top" >
+          <div class="col">
+           <div class="d-grid gap-2">
+             <button id="id_button" type="button" class="btn btn-secondary" name="add" onclick="EmployeeService.addEmployee(event)">Hinzufügen</button>
+           </div>
+          </div>
+        </div>
+      </div>
+  <br/>
+  <div id="table" class="border border-padding">
+    <div class="row">
+      <div class="col">ID</div>
+      <div class="col">Name</div>
+      <div class="col">E-Mail</div>
+      <div class="col">Rolle</div>
+      <div class="col">Aktion</div>
     </div>
-</div>
-</body>
+    <div id="userContent">
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </body>
 </html>
