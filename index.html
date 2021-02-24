@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -8,10 +9,13 @@
     <link href="css/styles.css" rel="stylesheet">
     <script src="js/model/user.js"></script>
     <script src="js/model/employee.js"></script>
+    <script src="js/moment.js"></script>
     <script src="js/services/employeeService.js"></script>
     <title></title>
   </head>
   <body onload="EmployeeService.init()">
+
+
     <div class="container">
 
         <div class="row">
@@ -20,7 +24,6 @@
         <div class="border border-padding">
           <div class="row col-align-bottom">
             <div class="col">
-              <label class="form-label">Name:</label>
               <input id="id_name"
                 class="form-control"
                 placeholder="Bitte einen Namen eingeben!"
@@ -28,7 +31,6 @@
                 onchange="EmployeeService.valueChange(event)">
             </div>
             <div class="col">
-              <label class="form-label">Email:</label>
               <input id="id_e-mail"
               class="form-control"
               placeholder="name@example.com"
@@ -37,12 +39,11 @@
               onchange="EmployeeService.valueChange(event)">
             </div>
             <div class="col">
-              <label class="form-label">Rolle:</label>
               <select id="id_role"
               class="form-select"
               name="role"
               onchange="EmployeeService.roleChange(event)">
-                <option selected>Bitte wählen aus...</option>
+                <option selected>Bitte Rolle auswählen...</option>
                 <option value="Admin">Administrator</option>
                 <option value="Benutzer">Benutzer</option>
                 <option value="Gast">Gast</option>
@@ -65,6 +66,7 @@
       <div class="col">Name</div>
       <div class="col">E-Mail</div>
       <div class="col">Rolle</div>
+      <div class="col">Letzte Änderung</div>
       <div class="col">Aktion</div>
     </div>
     <div id="userContent">
@@ -72,18 +74,48 @@
     </div>
   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="col">
+            <input id="id_dialog_name"
+              class="form-control"
+              placeholder="Bitte einen Namen eingeben!"
+              type="text" name="name" value=""
+              onchange="EmployeeService.valueChange(event)">
+          </div><br>
+          <div class="col">
+            <input id="id_dialog_e-mail"
+            class="form-control"
+            placeholder="name@example.com"
+            type="email" name="e-mail",
+            value=""
+            onchange="EmployeeService.valueChange(event)">
+          </div><br>
+          <div class="col">
+            <select id="id_dialog_role"
+            class="form-select"
+            name="role"
+            onchange="EmployeeService.roleChange(event)">
+              <option selected>Bitte Rolle auswählen...</option>
+              <option value="Admin">Administrator</option>
+              <option value="Benutzer">Benutzer</option>
+              <option value="Gast">Gast</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" id="id_dialog_id" value="">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="EmployeeService.changeEmployee()">Speichern und Schließen</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     </div>
   </body>
