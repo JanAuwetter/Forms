@@ -2,7 +2,7 @@ class EmployeeService {
 
   static init(){
     var myLocalStorage = window.localStorage;
-    //console.log(myLocalStorage);
+    console.log(myLocalStorage);
 
   for (var key in myLocalStorage) {
     // hole json string aus local storage
@@ -17,7 +17,7 @@ class EmployeeService {
          EmployeeService.createEmployeeLine(newEmployee);
       }
     } catch (e) {
-    //  console.log(e);
+      console.log(e);
     }
   }
 }
