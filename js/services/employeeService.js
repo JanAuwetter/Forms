@@ -1,25 +1,22 @@
 class EmployeeService {
 
   static init(){
-    var myLocalStorage = window.localStorage;
-    console.log(myLocalStorage);
 
-  for (var key in myLocalStorage) {
-    // hole json string aus local storage
-    var employee = myLocalStorage.getItem(key);
-    //console.log(employee);
-    // parse json string to class Emplyee
-    try {
-      var empl = JSON.parse(employee);
-      var newEmployee = new Employee(empl.id, empl.name, empl.email, empl.role, empl.lastModified);
-      if(newEmployee instanceof Employee){
-        console.log("JO Mitarbeiter wiederhergestellt");
-         EmployeeService.createEmployeeLine(newEmployee);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+    checkElasticSearch();
+
+    var employees = loadAllEmployees();
+    var array = employees.then(data => {
+        // logic zur Anzeuge
+        for (var i = 0; i < data.length; i++) {
+          var empl = data[i]._source;
+          console.log(empl);
+          var newEmployee = new Employee(empl.id, empl.name, empl.email, empl.role, empl.lastModified);
+          if(newEmployee instanceof Employee){
+              EmployeeService.createEmployeeLine(newEmployee);
+          }
+        }
+    });
+
 }
 
 static changeEmployee(){
@@ -51,7 +48,6 @@ static changeEmployee(){
 static createEmployeeLine(employee){
   var alle_zeilen = document.getElementById("userContent").innerHTML;
   var row = "<div id="+ employee.id +" class='row'>"+
-     "<div class='col'>" + employee.id + "</div>"+
      "<div class='col'>" + employee.name + "</div>"+
      "<div class='col'>" + employee.email + "</div>"+
      "<div class='col'>" + employee.role + "</div>"+
@@ -70,12 +66,19 @@ static createEmployeeLine(employee){
   static deleteEmployee(event){
     console.log("Event:"+event.target.id);
 
-    var myLocalStorage = window.localStorage;
-    myLocalStorage.removeItem(event.target.id);
-
-    var idToDelete = event.target.id;
-    var myobj = document.getElementById(idToDelete);
-    myobj.remove();
+    var data = deleteEmployee(event.target.id);
+    data.then(data =>{
+      var result = data.result;
+      if(result === 'deleted'){
+        alert("Mitarbeiter wurde gelöscht");
+        var idToDelete = event.target.id;
+        var myobj = document.getElementById(idToDelete);
+        myobj.remove();
+      }
+      else{
+        alert("Mitareiter wurde nicht gelöscht");
+      }
+    })
   }
 
   static addEmployee(event){
@@ -85,16 +88,15 @@ static createEmployeeLine(employee){
     var role = document.getElementById("id_role").value;
     var id = new Date().getTime();
     var lastModified = new Date();
-  console.log("add: "+lastModified);
+    console.log("add: "+lastModified);
     var employee = new Employee(id, name, email, role, lastModified);
-    console.log(employee);
-
-    var myLocalStorage = window.localStorage;
-    myLocalStorage.setItem(employee.id, JSON.stringify(employee) );
-
+    var jsonEmpl = JSON.stringify(employee);
+    var data = saveEmployee(jsonEmpl);
+    data.then(data => {
+      var _id = data._id;
+      employee.id = _id;
    EmployeeService.createEmployeeLine(employee);
-
-
+    });
   }
 
   static roleChange(event){
