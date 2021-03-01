@@ -8,9 +8,10 @@ class EmployeeService {
     var array = employees.then(data => {
         // logic zur Anzeuge
         for (var i = 0; i < data.length; i++) {
+          var _id = data[i]._id;
           var empl = data[i]._source;
           console.log(empl);
-          var newEmployee = new Employee(empl.id, empl.name, empl.email, empl.role, empl.lastModified);
+          var newEmployee = new Employee(_id, empl.name, empl.email, empl.role, empl.lastModified);
           if(newEmployee instanceof Employee){
               EmployeeService.createEmployeeLine(newEmployee);
           }
@@ -19,31 +20,45 @@ class EmployeeService {
 
 }
 
+
 static changeEmployee(){
   var id = document.getElementById("id_dialog_id").value;
   var name = document.getElementById("id_dialog_name").value;
   var email = document.getElementById("id_dialog_e-mail").value;
   var role = document.getElementById("id_dialog_role").value;
   var lastModified = new Date();
-  console.log("change: "+lastModified);
+
 
   var employee = new Employee(id, name, email, role, lastModified);
-  window.localStorage.setItem(id, JSON.stringify(employee));
+  var jsonEmpl = JSON.stringify(employee);
+  var data = saveEmployee(jsonEmpl, id);
+  data.then(data =>{
+    var result = data.result;
+      if(result === 'deleted'){
+        alert("Mitarbeiter wurde aktualisiert");
+        var div = document.getElementById(id);
+        div.remove();
+        EmployeeService.createEmployeeLine(employee);
+      }
+      else{
+        alert("Mitareiter wurde nicht aktualisiert");
+      }
+  });
+  }
 
-  var div = document.getElementById(id);
-  console.log(div);
-  div.remove();
 
-  EmployeeService.createEmployeeLine(employee);
 }
 
   static processForm(event){
-    var empl = JSON.parse(window.localStorage.getItem(event.target.id));
-    document.getElementById("id_dialog_name").value = empl.name;
-    document.getElementById("id_dialog_e-mail").value = empl.email;
-    document.getElementById("id_dialog_role").value = empl.role;
-    document.getElementById("id_dialog_id").value = empl.id;
-  }
+    var data = loadEmployee(event.target.id);
+    data.then(data => {
+      console.log("DATA:", data);
+    document.getElementById("id_dialog_name").value = data._source.name;
+    document.getElementById("id_dialog_e-mail").value = data._source.email;
+    document.getElementById("id_dialog_role").value = data._source.role;
+    document.getElementById("id_dialog_id").value = data.id;
+  });
+}
 
 static createEmployeeLine(employee){
   var alle_zeilen = document.getElementById("userContent").innerHTML;
